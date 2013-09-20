@@ -13,23 +13,6 @@
 
 <br>
 
-@current_solution
-<br>
-<%= @current_solution %>
-<br>
-<br>
-
-@solution
-<br>
-<%= @solution %>
-<br>
-<br>
-
-@puzzle
-<br>
-<%= @puzzle %>
-<br>
-<br>
 
 
 <div id="sudoku">
@@ -48,8 +31,6 @@
 
                       <% cell_index = row * 27 + box * 3 + cell_row * 9 + cell %>
                       <% cell_value = cell_value(@current_solution[cell_index]) %>         
-
-
                       <% colour_class = colour_class(@check_solution, @puzzle[cell_index], @current_solution[cell_index], @solution[cell_index])  %>
 
             					<input type="text"  maxlength="1" autocomplete="off" value='<%= cell_value %>' name="cell[]" class="<%= colour_class %>" >
@@ -62,12 +43,29 @@
           <% end %>
         </div>
       <% end %>
-    <br>
-    <button>Check solution</button>
+    <p><p>
+    <button class='submit_button'>Check solution</button>
   </form>
+  <form action="/newpuzzle" method="post">
+    <button class='submit_button'>New Puzzle</button>    
+  </form>
+  <form action="/solution" method="post"class='button'>
+    <button class='submit_button'>Give me the sollution</button>    
+  </form>
+   <form action="/restart_puzzle" method="post"class='button'>
+    <button class='submit_button'>Restart puzzle</button>    
+  </form>
+
 </div>
 <br>
 
 
 </body>
 </html>
+
+
+
+
+
+
+

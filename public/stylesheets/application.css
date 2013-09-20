@@ -30,6 +30,12 @@ div.cell {
   background-color: #DDD;
 }
 
+.submit_button {
+  border: 1px solid #000000;
+  display: inline-block;
+
+}
+
 #sudoku {
   font-size: 0;
   text-align: center;

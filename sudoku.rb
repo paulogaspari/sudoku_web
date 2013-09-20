@@ -10,6 +10,8 @@ set :session_secret, "I'm the secret key to sign the cookie"
 
 
 
+#   GETs
+#####################################################################
 
 
 get '/' do
@@ -22,14 +24,19 @@ get '/' do
 end
 
 
-# post '/' do
-#   cells = params["cell"]
-#   session[:current_solution] = cells.map{|value| value.to_i }.join
-#   session[:check_solution] = true
-#   redirect to ('/')
-# end
+get '/solution' do 
+  @current_solution = session[:solution]
+  @solution = session[:solution]
+  @puzzle = session[:puzzle]
+  erb :index
+end 
 
 
+
+
+
+#   POSTs
+#####################################################################
 
 post '/' do
   boxes = params["cell"].each_slice(9).to_a
@@ -42,44 +49,44 @@ post '/' do
 end
 
 
+post '/newpuzzle' do
+  session[:current_solution] = false
+  redirect to("/")
+end
 
 
+post '/solution' do
+  redirect to("/solution")
+end
 
-get '/solution' do 
-  @current_solution = session[:solution]
-  erb :index
-end 
-
-# get '/solution' do 
-#   @current_solution = session[:solution]
-#   erb :index
-# end 
-
-#####################################################################
-
-#####################################################################
-
-
-def random_sudoku
-    # we're using 9 numbers, 1 to 9, and 72 zeros as an input
-    seed = (1..9).to_a.shuffle + Array.new(81-9, 0)
-    sudoku = Sudoku.new(seed.join)
-    # then we solve this (really hard!) sudoku
-    sudoku.solve!
-    # and give the output to the view as an array of chars
-    sudoku.to_s.chars
+post '/restart_puzzle' do
+  session[:current_solution] = session[:puzzle]
+  redirect to("/")
 end
 
 
 
+
+#   METHODS
+#####################################################################
+
+
+def random_sudoku
+    seed = (1..9).to_a.shuffle + Array.new(81-9, 0)
+    sudoku = Sudoku.new(seed.join)
+    sudoku.solve!
+    sudoku.to_s.chars
+end
+
+
 def puzzle(sudoku)
-  sudoku_level = 75
+  sudoku_level = 1
   indexes = (0..80).to_a.sample(81-sudoku_level)
   puzzle = sudoku.dup
   indexes.each {|index| puzzle[index] = "0"}
   puzzle
 end
-  # there is a little bug, because the last cell is always populated
+
 
 def generate_new_puzzle_if_necessary
   return if session[:current_solution]
@@ -89,17 +96,22 @@ def generate_new_puzzle_if_necessary
   session[:current_solution] = session[:puzzle]    
 end
 
+
 def prepare_to_check_solution
   @check_solution = session[:check_solution]
   session[:check_solution] = nil
 end
 
 
+
+#    HELPERS
+#####################################################################
+
+
 helpers do
 
   def colour_class(solution_to_check, puzzle_value, current_solution_value, solution_value)
     must_be_guessed = puzzle_value == "0"
-    # I needed to change this 0 to "0" otherwise all the cells show up as value provided
     tried_to_guess = current_solution_value.to_i != 0
     guessed_incorrectly = current_solution_value != solution_value
 
@@ -109,6 +121,7 @@ helpers do
       'value-provided'
     end
   end
+
 
   def cell_value(value)
     value.to_i == 0 ? '' : value
