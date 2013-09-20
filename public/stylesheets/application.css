@@ -1,9 +1,16 @@
+
 body {
   text-align: center;
   font-family: Arial;
 }
 
-div.box, div.cell {
+div.box {
+  display: inline-block;
+  margin: 0px;
+  border: 2px solid #000000;
+}
+
+div.cell {
   display: inline-block;
 }
 
@@ -11,12 +18,24 @@ div.box, div.cell {
   width: 30px;
   height: 30px;
   text-align: center;
+  border: 1px solid #000000;
 
+}
+
+.incorrect {
+  background-color: red;
+}
+
+.value-provided {
+  background-color: #DDD;
 }
 
 #sudoku {
   font-size: 0;
   text-align: center;
+}
 
-
+#sudoku_table {
+  border: 2px solid #000000;
+	
 }

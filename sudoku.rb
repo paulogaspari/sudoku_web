@@ -7,6 +7,36 @@ require_relative './lib/cell'
 enable :sessions
 
 
+get '/' do
+  prepare_to_check_solution
+  generate_new_puzzle_if_necessary
+  sudoku = random_sudoku
+  session[:solution] = sudoku
+  @solution = session[:solution]
+  @current_solution = puzzle(sudoku)
+  # raise @solution.inspect
+  erb :index
+end
+
+post '/' do
+  cells = params["cell"]
+  session[:current_solution] = cells.map{|value| value.to_i }.join
+  session[:check_solution] = true
+  redirect to ('/')
+end
+
+get '/solution' do 
+  @current_solution = session[:solution]
+  erb :index
+end 
+
+
+
+#####################################################################
+
+#####################################################################
+
+
 def random_sudoku
     # we're using 9 numbers, 1 to 9, and 72 zeros as an input
     seed = (1..9).to_a.shuffle + Array.new(81-9, 0)
@@ -22,35 +52,53 @@ end
 def puzzle(sudoku)
   sudoku_level = 45
   indexes = []
-  puzzle = sudoku.dup
+  @puzzle = sudoku.dup
 
   until indexes.count == sudoku_level do
     indexes << rand(80)
     indexes.uniq!
   end
 
-  indexes.each {|index| puzzle[index] = nil}
-  puzzle
+  indexes.each {|index| @puzzle[index] = 0}
+  @puzzle
 end
   # there is a little bug, because the last cell is always populated
 
-
-
-get '/' do
+def generate_new_puzzle_if_necessary
+  return if session[:current_solution]
   sudoku = random_sudoku
   session[:solution] = sudoku
-  @current_solution = puzzle(sudoku)
-  erb :index
+  session[:puzzle] = puzzle(sudoku)
+  session[:current_solution] = session[:puzzle]    
+end
+
+def prepare_to_check_solution
+  @check_solution = session[:check_solution]
+  session[:check_solution] = nil
 end
 
 
-get '/solution' do 
-  @current_solution = session[:solution]
-  erb :index
-end 
+helpers do
+
+  def colour_class(solution_to_check, puzzle_value, current_solution_value, solution_value)
+    must_be_guessed = puzzle_value == 0
+    # I needed to change this 0 to "0" otherwise all the cells show up as value provided
+    tried_to_guess = current_solution_value.to_i != 0
+    guessed_incorrectly = current_solution_value != solution_value
+
+    if solution_to_check && must_be_guessed && tried_to_guess && guessed_incorrectly
+      'incorrect'
+    elsif !must_be_guessed
+      'value-provided'
+    end
+  end
+
+  def cell_value(value)
+    value.to_i == 0 ? '' : value
+  end
+
+end
 
 
 
 
-
-# ["4", "6", "3", "9", "7", "1", "5", "8", "2", "1", "2", "5", "3", "4", "8", "6", "7", "9", "7", "8", "9", "2", "5", "6", "1", "3", "4", "2", "1", "4", "5", "3", "7", "8", "9", "6", "3", "5", "6", "1", "8", "9", "2", "4", "7", "8", "9", "7", "4", "6", "2", "3", "1", "5", "5", "3", "1", "6", "9", "4", "7", "2", "8", "6", "4", "8", "7", "2", "3", "9", "5", "1", "9", "7", "2", "8", "1", "5", "4", "6", "3"]
