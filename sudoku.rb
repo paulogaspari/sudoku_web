@@ -6,31 +6,54 @@ require_relative './lib/cell'
 
 enable :sessions
 
+set :session_secret, "I'm the secret key to sign the cookie"
+
+
+
+
 
 get '/' do
   prepare_to_check_solution
   generate_new_puzzle_if_necessary
-  sudoku = random_sudoku
-  session[:solution] = sudoku
+  @current_solution = session[:current_solution] || session[:puzzle]
   @solution = session[:solution]
-  @current_solution = puzzle(sudoku)
-  # raise @solution.inspect
+  @puzzle = session[:puzzle]
   erb :index
 end
 
+
+# post '/' do
+#   cells = params["cell"]
+#   session[:current_solution] = cells.map{|value| value.to_i }.join
+#   session[:check_solution] = true
+#   redirect to ('/')
+# end
+
+
+
 post '/' do
-  cells = params["cell"]
+  boxes = params["cell"].each_slice(9).to_a
+  cells = (0..8).to_a.inject([]) {|memo, i|
+    memo += boxes[i/3*3, 3].map{|box| box[i%3*3, 3] }.flatten
+  }
   session[:current_solution] = cells.map{|value| value.to_i }.join
   session[:check_solution] = true
-  redirect to ('/')
+  redirect to("/")
 end
+
+
+
+
 
 get '/solution' do 
   @current_solution = session[:solution]
   erb :index
 end 
 
-
+# get '/solution' do 
+#   @current_solution = session[:solution]
+#   erb :index
+# end 
 
 #####################################################################
 
@@ -50,17 +73,11 @@ end
 
 
 def puzzle(sudoku)
-  sudoku_level = 45
-  indexes = []
-  @puzzle = sudoku.dup
-
-  until indexes.count == sudoku_level do
-    indexes << rand(80)
-    indexes.uniq!
-  end
-
-  indexes.each {|index| @puzzle[index] = 0}
-  @puzzle
+  sudoku_level = 75
+  indexes = (0..80).to_a.sample(81-sudoku_level)
+  puzzle = sudoku.dup
+  indexes.each {|index| puzzle[index] = "0"}
+  puzzle
 end
   # there is a little bug, because the last cell is always populated
 
@@ -81,7 +98,7 @@ end
 helpers do
 
   def colour_class(solution_to_check, puzzle_value, current_solution_value, solution_value)
-    must_be_guessed = puzzle_value == 0
+    must_be_guessed = puzzle_value == "0"
     # I needed to change this 0 to "0" otherwise all the cells show up as value provided
     tried_to_guess = current_solution_value.to_i != 0
     guessed_incorrectly = current_solution_value != solution_value
