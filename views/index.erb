@@ -2,7 +2,6 @@
 
 <head>
   <title>Sudoku Game</title>   
-  <!-- link to the CSS stylesheet -->
   <link href="/stylesheets/application.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -33,7 +32,7 @@
                       <% cell_value = cell_value(@current_solution[cell_index]) %>         
                       <% colour_class = colour_class(@check_solution, @puzzle[cell_index], @current_solution[cell_index], @solution[cell_index])  %>
 
-            					<input type="text"  maxlength="1" autocomplete="off" value='<%= cell_value %>' name="cell[]" class="<%= colour_class %>" >
+            					<input type="text"  maxlength="1" autocomplete="off" value='<%= cell_value %>' name="cell[]" class="<%= colour_class %>" readonly='' >
 
                     </div>
                   <% end %>

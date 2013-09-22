@@ -28,6 +28,7 @@ div.cell {
 
 .value-provided {
   background-color: #DDD;
+  readonly;
 }
 
 .submit_button {

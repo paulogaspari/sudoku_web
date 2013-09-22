@@ -10,6 +10,23 @@ set :session_secret, "I'm the secret key to sign the cookie"
 
 
 
+#   FEATURES TO IMPLEMENT
+#####################################################################
+#  
+## preventing the cells given to be edited
+#  
+## adding 3 types of difficulty: easy medium and hard
+#  
+##
+#
+
+
+
+
+
+
+
+
 #   GETs
 #####################################################################
 
@@ -80,7 +97,7 @@ end
 
 
 def puzzle(sudoku)
-  sudoku_level = 1
+  sudoku_level = 55
   indexes = (0..80).to_a.sample(81-sudoku_level)
   puzzle = sudoku.dup
   indexes.each {|index| puzzle[index] = "0"}
@@ -126,6 +143,10 @@ helpers do
   def cell_value(value)
     value.to_i == 0 ? '' : value
   end
+
+  # def readonly
+  #   read_only = readonly if colour_class = 'value-provided'
+  # end
 
 end
 
