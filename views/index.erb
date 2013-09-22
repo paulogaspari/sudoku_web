@@ -7,12 +7,13 @@
 
 
 <body>
-
-<h1 id="title">Life is too short for playing Sudoku</h1>
-
-<br>
-
-
+  <div>
+    <div id="header1">
+      <h1 id="title">Life is too short for playing Sudoku</h1>
+    </div>
+    <div id="header2">
+    </div>
+  </div>
 
 <div id="sudoku">
   <form action="/" method="post">
@@ -32,7 +33,9 @@
                       <% cell_value = cell_value(@current_solution[cell_index]) %>         
                       <% colour_class = colour_class(@check_solution, @puzzle[cell_index], @current_solution[cell_index], @solution[cell_index])  %>
 
-            					<input type="text"  maxlength="1" autocomplete="off" value='<%= cell_value %>' name="cell[]" class="<%= colour_class %>" readonly='' >
+                      <% cell_is_read_only = 'readonly' if colour_class == 'value-provided' %>
+
+            					<input type="text"  maxlength="1" autocomplete="off" value='<%= cell_value %>' name="cell[]" class="<%= colour_class %>" <%= cell_is_read_only %> >
 
                     </div>
                   <% end %>
@@ -57,7 +60,9 @@
 
 </div>
 <br>
-
+    </div>
+    <div id="footer">
+    </div>
 
 </body>
 </html>

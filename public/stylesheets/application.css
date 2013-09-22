@@ -2,6 +2,36 @@
 body {
   text-align: center;
   font-family: Arial;
+  margin: 0;
+  padding: 0;
+}
+
+
+#header1 {
+  background-color: #fec533;
+  height: 100px;
+  text-align: center;
+}
+
+h1 { 
+	padding: 25;
+	color: white;
+	font-family: Helvetica;
+	font-weight: 100;
+	font-size: 3em;
+	letter-spacing: -5.2pt;
+}
+
+#header2 {
+  background-color: #e5e5e5;
+  height: 8px
+}
+
+#footer {
+  background-color: #e5e5e5;
+  height: 25px;
+  text-align: center;
+  font-family: Arial;
 }
 
 div.box {
@@ -28,7 +58,6 @@ div.cell {
 
 .value-provided {
   background-color: #DDD;
-  readonly;
 }
 
 .submit_button {
@@ -40,6 +69,7 @@ div.cell {
 #sudoku {
   font-size: 0;
   text-align: center;
+  margin: 20px;
 }
 
 /*#sudoku_table {

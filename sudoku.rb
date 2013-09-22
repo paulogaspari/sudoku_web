@@ -145,7 +145,7 @@ helpers do
   end
 
   # def readonly
-  #   read_only = readonly if colour_class = 'value-provided'
+  #   # read_only = nil if colour_class 
   # end
 
 end
