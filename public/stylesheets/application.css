@@ -82,7 +82,7 @@ div.cell {
 }
 
 .incorrect {
-  background-color: red;
+  background-color: #fec533;
 }
 
 .value-provided {
@@ -96,19 +96,35 @@ div.cell {
 }.submit_button:hover {
 	background-color:#BABABA;
 }.submit_button:active {
-	position:relative;
-	top:1px;
+	color: white;
 }
+
+.position_button {
+	position: relative;
+	top: -20;
+}
+#progress { left: 83; top: 4}
+#solution{ left: 0 ;}
+#restart{ left: -83; top: -44}
+
 
 #sudoku {
   font-size: 0;
   text-align: center;
   margin: 80px;
+  position: relative;
 }
 
-.action_button {
-	display: inline-block;
+
+
+#flash {
+  text-align: center;
+  margin: 20px;
+  position: fixed;
+  top: 120px;
+  color: #fec533;
 }
+
 /*#sudoku_table {
   border: 2px solid #000000;
 

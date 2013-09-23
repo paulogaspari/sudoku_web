@@ -58,6 +58,7 @@ end
 
 
 post '/solution' do
+  flash[:notice2] = "You'r weak. Already giving up.."
   redirect to("/solution")
 end
 
@@ -106,6 +107,9 @@ end
 
 def prepare_to_check_solution
   @check_solution = session[:check_solution]
+  if @check_solution
+    flash[:notice1] = 'Incorrect values highlighted in yellow.'
+  end
   session[:check_solution] = nil
 end
 

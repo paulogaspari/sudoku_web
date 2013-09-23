@@ -20,7 +20,7 @@
 
 
   <div id="sudoku">
-    <form action="/" method="post" class='action_button'>
+    <form action="/" method="post">
       <% 3.times do |row| %>
         <div class='row'>
           <% 3.times do |box| %>
@@ -45,20 +45,18 @@
           <% end %>
         </div>
       <% end %>
-      <button class='submit_button'>Check progress</button>
+      <button id='progress' class='submit_button position_button' onclick="timeout_init()">Check progress</button>
     </form>
-    <form action="/solution" method="post" class='action_button'>
-      <button class='submit_button'>Solution</button>    
+    <form action="/solution" method="post">
+      <button id='solution' class='submit_button position_button' onclick="timeout_init()">Solution</button>    
     </form>
-    <form action="/restart_puzzle" method="post" class='action_button'>
-      <button class='submit_button'>Restart puzzle</button>    
+    <form action="/restart_puzzle" method="post">
+      <button id='restart' class='submit_button position_button'>Restart puzzle</button>    
     </form>
   </div>
 
 
-  </div>
-  </div>
-  </div>
+
 
 
   <div class='difficulty_level'>
@@ -84,13 +82,22 @@
   </div>
 
 
+<center><div id="flash">
+  <%= flash[:notice1] %>
+  <%= flash[:notice2] %>
+</div></center>
+
+
+  <script language="Javascript">
+    function hide {
+    document.getElementById('flash').style.display = "none";
+    }
+
+    function timeout_init() {
+        setTimeout('hide', 1000);
+    }
+  </script>
+
 
 </body>
 </html>
-
-
-
-
-
-
-
