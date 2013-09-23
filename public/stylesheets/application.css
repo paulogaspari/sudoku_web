@@ -107,6 +107,10 @@ div.cell {
 #solution{ left: 0 ;}
 #restart{ left: -83; top: -44}
 
+#difficulty_level {
+	position: relative;
+	top: -100;
+}
 
 #sudoku {
   font-size: 0;
