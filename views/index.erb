@@ -1,32 +1,33 @@
 <html>
 
 <head>
-  <title>Sudoku Game</title>   
+  <title>FunnyHow? Sudoku</title>   
   <link href="/stylesheets/application.css" rel="stylesheet" type="text/css">
 </head>
 
 
 <body>
+
+
   <div>
     <div id="header1">
-      <h1 id="title">Life is too short for playing Sudoku</h1>
+      <h1 id="title">FunnyHow? Sudoku</h1>
     </div>
     <div id="header2">
     </div>
   </div>
 
-<div id="sudoku">
-  <form action="/" method="post">
-  <!-- one div for each row -->
-    <% 3.times do |row| %>
-      <div class='row'>
-          <!-- we want to create separate div elements for boxes to style them using CSS -->
-        <% 3.times do |box| %>
+
+
+  <div id="sudoku">
+    <form action="/" method="post" class='action_button'>
+      <% 3.times do |row| %>
+        <div class='row'>
+          <% 3.times do |box| %>
             <div class="box"  id='sudoku_table'>
-           <!-- each box will have nine cells -->
-           <% 3.times do |cell_row| %>
+              <% 3.times do |cell_row| %>
                 <div class="cell-row">
-               <% 3.times do |cell| %>
+                  <% 3.times do |cell| %>
                     <div class="cell">
 
                       <% cell_index = row * 27 + box * 3 + cell_row * 9 + cell %>
@@ -35,8 +36,7 @@
 
                       <% cell_is_read_only = 'readonly' if colour_class == 'value-provided' %>
 
-            					<input type="text"  maxlength="1" autocomplete="off" value='<%= cell_value %>' name="cell[]" class="<%= colour_class %>" <%= cell_is_read_only %> >
-
+              				<input type="text"  maxlength="1" autocomplete="off" value='<%= cell_value %>' name="cell[]" class="<%= colour_class %>" <%= cell_is_read_only %> >
                     </div>
                   <% end %>
                 </div>
@@ -45,24 +45,45 @@
           <% end %>
         </div>
       <% end %>
-    <p><p>
-    <button class='submit_button'>Check solution</button>
-  </form>
-  <form action="/newpuzzle" method="post">
-    <button class='submit_button'>New Puzzle</button>    
-  </form>
-  <form action="/solution" method="post"class='button'>
-    <button class='submit_button'>Give me the sollution</button>    
-  </form>
-   <form action="/restart_puzzle" method="post"class='button'>
-    <button class='submit_button'>Restart puzzle</button>    
-  </form>
+      <button class='submit_button'>Check progress</button>
+    </form>
+    <form action="/solution" method="post" class='action_button'>
+      <button class='submit_button'>Solution</button>    
+    </form>
+    <form action="/restart_puzzle" method="post" class='action_button'>
+      <button class='submit_button'>Restart puzzle</button>    
+    </form>
+  </div>
 
-</div>
-<br>
+
+  </div>
+  </div>
+  </div>
+
+
+  <div class='difficulty_level'>
+    <h3>New puzzle? Choose difficulty level:</h3>
+    <form action="/newpuzzle" method="post">
+      <button class='submit_button'>Easy</button> 
+      <button class='submit_button'>Medium</button> 
+      <button class='submit_button'>Hard</button> 
+    </form>
+  </div>
+
+
+
+
+  <div id='footer'>
+    <div id='footer1'>
     </div>
-    <div id="footer">
+    <div id='footer2'>
+      This puzzle is part of MakersAcademy exercise on Sinatra of week 5. 
+      <p>www.funnyhow.pt
+        <br>&copy; 2013 Paulo Gaspar</p>
     </div>
+  </div>
+
+
 
 </body>
 </html>

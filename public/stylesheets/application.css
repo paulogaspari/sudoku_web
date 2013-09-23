@@ -13,6 +13,37 @@ body {
   text-align: center;
 }
 
+#header2 {
+  background-color: #e5e5e5;
+  height: 8px
+}
+
+
+#footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0px;
+}
+#footer1 {
+  background-color: #e5e5e5;
+  height: 8px;
+}
+#footer2 {
+  background-color: #BABABA;
+  height: 80px;
+  width: 100%;
+  padding: 15px; 
+  text-align: center;
+	color: #5C5C5C;
+	font-family: Helvetica;
+	font-weight: 100;
+	letter-spacing: -1pt;
+	font-size: 9pt;
+}
+
+
+
+
 h1 { 
 	padding: 25;
 	color: white;
@@ -22,22 +53,21 @@ h1 {
 	letter-spacing: -5.2pt;
 }
 
-#header2 {
-  background-color: #e5e5e5;
-  height: 8px
+h3 { 
+	color: #A1A1A1;
+	font-family: Helvetica;
+	font-weight: 100;
+	letter-spacing: -2pt;
 }
 
-#footer {
-  background-color: #e5e5e5;
-  height: 25px;
-  text-align: center;
-  font-family: Arial;
-}
+
+
+
 
 div.box {
   display: inline-block;
   margin: 0px;
-  border: 2px solid #000000;
+  border: 1px solid #000000;
 }
 
 div.cell {
@@ -49,7 +79,6 @@ div.cell {
   height: 30px;
   text-align: center;
   border: 1px solid #000000;
-
 }
 
 .incorrect {
@@ -57,21 +86,29 @@ div.cell {
 }
 
 .value-provided {
-  background-color: #DDD;
+  background-color: #e5e5e5;
 }
 
 .submit_button {
-  border: 1px solid #000000;
+  border: 1px solid #5C5C5C;
+  background-color:#ededed;
   display: inline-block;
-
+}.submit_button:hover {
+	background-color:#BABABA;
+}.submit_button:active {
+	position:relative;
+	top:1px;
 }
 
 #sudoku {
   font-size: 0;
   text-align: center;
-  margin: 20px;
+  margin: 80px;
 }
 
+.action_button {
+	display: inline-block;
+}
 /*#sudoku_table {
   border: 2px solid #000000;
 

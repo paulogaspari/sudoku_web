@@ -1,28 +1,13 @@
 
 
 require 'sinatra'
+require 'rack-flash'
 require_relative './lib/sudoku'
 require_relative './lib/cell'
 
 enable :sessions
-
 set :session_secret, "I'm the secret key to sign the cookie"
-
-
-
-#   FEATURES TO IMPLEMENT
-#####################################################################
-#  
-## preventing the cells given to be edited
-#  
-## adding 3 types of difficulty: easy medium and hard
-#  
-##
-#
-
-
-
-
+use Rack::Flash
 
 
 
@@ -95,9 +80,14 @@ def random_sudoku
     sudoku.to_s.chars
 end
 
+def difficulty(level)
+  @difficulty = 55 if level == 'easy'
+  @difficulty = 50 if level == 'medium'
+  @difficulty = 46 if level == 'hard'
+end
 
 def puzzle(sudoku)
-  sudoku_level = 55
+  sudoku_level = 55 # after change for difficulty: @difficulty
   indexes = (0..80).to_a.sample(81-sudoku_level)
   puzzle = sudoku.dup
   indexes.each {|index| puzzle[index] = "0"}
